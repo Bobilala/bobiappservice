@@ -21,7 +21,7 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
@@ -33,13 +33,12 @@ steps:
 - task: CopyFiles@2
   inputs:
     contents: '**/*.zip'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'    
+
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-    targetFolder: '$(build.artifactStagingDirectory)'
-- task: PublishBuildArtifacts@1
+    PathtoPublish: '$(build.ArtifactStagingDirectory)'
+
 
 - task: AzureWebApp@1
   inputs:
