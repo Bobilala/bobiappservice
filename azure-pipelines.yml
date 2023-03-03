@@ -45,7 +45,7 @@ steps:
     azureSubscription: 'Bobi mengyaobao MS Azure Internal Consumption(d22588d7-d2c5-4e6b-9f12-26ca6aae9adf)'
     appType: 'webApp'
     appName: 'bobi-webjob'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: '$(build.ArtifactStagingDirectory)/**/*.zip'
     appSettings: '-Bobisetting 5000 -RequestTimeout 5000'
     deploymentMethod: 'auto'
 
