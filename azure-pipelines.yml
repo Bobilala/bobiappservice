@@ -45,7 +45,7 @@ steps:
     azureSubscription: 'Bobi mengyaobao MS Azure Internal Consumption (d22588d7-d2c5-4e6b-9f12-26ca6aae9adf)'
     appType: 'webApp'
     WebAppName: 'bobi-webjob'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    packageForLinux: '$(build.ArtifactStagingDirectory)/**/*.zip'
     AppSettings: '-BobiPort 5000 -RequestTimeout 5000'
 # Build and test ASP.NET Core projects targeting the full .NET Framework.
 # Add steps that publish symbols, save build artifacts, and more:
