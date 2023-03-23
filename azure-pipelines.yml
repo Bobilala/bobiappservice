@@ -39,7 +39,7 @@ steps:
     azureSubscription: 'Bobi mengyaobao MS Azure Internal Consumption (d22588d7-d2c5-4e6b-9f12-26ca6aae9adf)'
     appType: 'webApp'
     appName: 'bobi-webjob'
-    #VirtualApplication: 'site1'
     package: '$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
+    VirtualApplication: 'site1'
     deploymentMethod: 'auto'
 
