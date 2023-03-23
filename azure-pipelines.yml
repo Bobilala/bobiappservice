@@ -34,12 +34,11 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
-- task: AzureWebApp@1
+- task: AzureRmWebAppDeployment@4
   inputs:
+    ConnectionType: 'AzureRM'
     azureSubscription: 'Bobi mengyaobao MS Azure Internal Consumption (d22588d7-d2c5-4e6b-9f12-26ca6aae9adf)'
     appType: 'webApp'
-    appName: 'bobi-webjob'
-    package: '$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
+    WebAppName: 'bobi-webjob'
     VirtualApplication: 'site1'
-    deploymentMethod: 'auto'
-
+    packageForLinux: '$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
