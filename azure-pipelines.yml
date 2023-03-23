@@ -33,11 +33,11 @@ steps:
 - task: CopyFiles@2
   inputs:
     contents: '**/*.zip'
-    targetFolder: '$(Build.ArtifactStagingDirectory)/site1'    
+    targetFolder: '$(Build.ArtifactStagingDirectory)'    
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(build.ArtifactStagingDirectory)/site1'
+    PathtoPublish: '$(build.ArtifactStagingDirectory)'
 
 - task: AzureRmWebAppDeployment@4
   inputs:
@@ -45,8 +45,8 @@ steps:
     azureSubscription: 'Bobi mengyaobao MS Azure Internal Consumption (d22588d7-d2c5-4e6b-9f12-26ca6aae9adf)'
     appType: 'webApp'
     WebAppName: 'bobi-webjob'
+    package: '$(build.ArtifactStagingDirectory)/site1'
     VirtualApplication: 'site1'
-    packageForLinux: '$(build.ArtifactStagingDirectory)/**/*.zip'
     # AppSettings: '-BobiPort 5000 -RequestTimeout 5000'
 # Build and test ASP.NET Core projects targeting the full .NET Framework.
 # Add steps that publish symbols, save build artifacts, and more:
