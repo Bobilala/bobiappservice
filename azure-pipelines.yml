@@ -47,7 +47,7 @@ steps:
     WebAppName: 'bobi-webjob'
     VirtualApplication: 'site1'
     packageForLinux: '$(build.ArtifactStagingDirectory)/**/*.zip'
-    AppSettings: '-BobiPort 5000 -RequestTimeout 5000'
+    # AppSettings: '-BobiPort 5000 -RequestTimeout 5000'
 # Build and test ASP.NET Core projects targeting the full .NET Framework.
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
