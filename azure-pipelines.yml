@@ -33,7 +33,7 @@ steps:
 - task: CopyFiles@2
   inputs:
     contents: '**/*.zip'
-    targetFolder: '$(Build.ArtifactStagingDirectory)'    
+    targetFolder: '$(Build.ArtifactStagingDirectory)/site1'    
 
 - task: PublishBuildArtifacts@1
   inputs:
