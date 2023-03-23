@@ -1,54 +1,45 @@
-# ASP.NET Core (.NET Framework)
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
 
 trigger:
 - master
 
 pool:
-  vmImage: 'windows-latest'
-
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  vmImage: windows-latest
 
 steps:
-- task: NuGetToolInstaller@1
 
-- task: NuGetCommand@2
+
+- task: MSBuild@1
   inputs:
-    restoreSolution: '$(solution)'
-
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
+    solution: '**/*.sln'
 - task: CopyFiles@2
   inputs:
-    contents: '**/*.zip'
-    targetFolder: '$(Build.ArtifactStagingDirectory)'    
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  
+      
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/site1'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(build.ArtifactStagingDirectory)'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 
-- task: AzureRmWebAppDeployment@4
+- task: AzureWebApp@1
   inputs:
-    ConnectionType: 'AzureRM'
     azureSubscription: 'Bobi mengyaobao MS Azure Internal Consumption (d22588d7-d2c5-4e6b-9f12-26ca6aae9adf)'
     appType: 'webApp'
-    WebAppName: 'bobi-webjob'
-    package: '$(build.ArtifactStagingDirectory)/site1'
+    appName: 'bobi-webjob'
     VirtualApplication: 'site1'
-    # AppSettings: '-BobiPort 5000 -RequestTimeout 5000'
-# Build and test ASP.NET Core projects targeting the full .NET Framework.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+    package: '$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
+    deploymentMethod: 'auto'
 
