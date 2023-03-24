@@ -9,24 +9,23 @@ trigger:
 pool:
   vmImage: windows-latest
 
+variables:
+  solution: '**/*.sln'
+
 steps:
 
+- task: NuGetToolInstaller@1
 
-- task: MSBuild@1
+- task: NuGetCommand@2
   inputs:
-    solution: '**/*.sln'
+    restoreSolution: '$(solution)'
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
 - task: CopyFiles@2
   inputs:
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
-  
-      
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
+
 
 - task: PublishBuildArtifacts@1
   inputs:
