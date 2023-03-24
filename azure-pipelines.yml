@@ -26,12 +26,13 @@ steps:
     archiveType: 'zip'
     archiveFile: '$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
-
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Bobi mengyaobao MS Azure Internal Consumption (d22588d7-d2c5-4e6b-9f12-26ca6aae9adf)'
     appType: 'webApp'
     WebAppName: 'bobi-webjob'
-    VirtualApplication: 'site1'
+    deployToSlotOrASE: true
+    ResourceGroupName: 'bobi-webjob_group'
+    SlotName: 'offline'
     packageForLinux: '$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
