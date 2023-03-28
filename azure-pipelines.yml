@@ -32,7 +32,7 @@ steps:
     azureSubscription: 'Bobi mengyaobao MS Azure Internal Consumption (d22588d7-d2c5-4e6b-9f12-26ca6aae9adf)'
     appType: 'webApp'
     WebAppName: 'bobi-webjob'
-    deployToSlotOrASE: true
+    # deployToSlotOrASE: true
     ResourceGroupName: 'bobi-webjob_group'
-    SlotName: 'offline'
+    # SlotName: 'offline'
     packageForLinux: '$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip'
